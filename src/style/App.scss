@@ -1,0 +1,35 @@
+$cell-width: 20px;
+$color-open: white;
+$color-closed: #b39e9e;
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  &, td {
+    border: 1px solid #b39e9e;
+  }
+  td {
+    width: $cell-width;
+    height: $cell-width;
+    &.open {
+      background-color: $color-open;
+    }
+    &.close {
+      background-color: $color-closed;
+    }
+  }
+}
+
+
+.App {
+  text-align: center;
+  .App-header {
+    background-color: #a0a0a0;
+    height: 70px;
+    padding: 20px;
+    color: white;
+  }
+  .App-intro {
+    font-size: large;
+  }
+}

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './style/App.min.css';
+import Game from './Game.js';
 
 class App extends Component {
   render() {
-    return (
+    return(
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Dungeon Crawler Game!</h2>
+          <h2>Dungeon Crawler Game</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Type "Free Code Camp" to start the game :)
         </p>
+        <Game />
       </div>
     );
   }
