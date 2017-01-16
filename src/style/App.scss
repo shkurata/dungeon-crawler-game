@@ -1,6 +1,7 @@
 $cell-width: 20px;
 $color-open: white;
 $color-closed: #b39e9e;
+$color-active: #96cc81;
 
 table {
   margin: auto;
@@ -16,6 +17,9 @@ table {
     }
     &.close {
       background-color: $color-closed;
+    }
+    &.active {
+      background-color: $color-active;
     }
   }
 }

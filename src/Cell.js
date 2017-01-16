@@ -1,12 +1,11 @@
 import React from 'react';
-// this is the smallest component of the app. It has one property:
-// 'status'  with the following values:
-//           'open' - shows thet the player can walk through it
-//           'close' - it is a wall
-//           'enemy', 'food', 'weapon' - if it contains something
+// this is the smallest component of the app. It has the following properties:
+// 'open' - can be 'true'or 'false' and shows if the player can walk through it,
+// 'active' - can be 'true'or 'false' and shows the current possition of the player,
+// 'content' -can be 'enemy', 'food' or 'weapon' - shows the contents of the cell
 function Cell(props) {
 
-  return <td className={props.status ? 'open' : 'close'} />
+  return <td className={props.status.open ? props.status.active ? 'active' : 'open' : 'close'} />
 }
 
 export default Cell;
