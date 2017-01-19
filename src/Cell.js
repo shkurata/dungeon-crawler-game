@@ -5,7 +5,7 @@ import React from 'react';
 // 'content' -can be 'enemy', 'food' or 'weapon' - shows the contents of the cell
 function Cell(props) {
 
-  return <td className={props.status.open ? props.status.active ? 'active' : 'open' : 'close'} />
+  return <td className={props.status === 2 ? 'active' : props.status === 0 ? 'close' : ''} />
 }
 
 export default Cell;

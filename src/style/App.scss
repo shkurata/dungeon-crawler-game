@@ -1,9 +1,10 @@
-$cell-width: 20px;
+$cell-width: 10px;
 $color-open: white;
 $color-closed: #b39e9e;
 $color-active: #96cc81;
 
 table {
+  background-color: $color-open;
   margin: auto;
   border-collapse: collapse;
   &, td {
@@ -12,6 +13,7 @@ table {
   td {
     width: $cell-width;
     height: $cell-width;
+    position: relative;
     &.open {
       background-color: $color-open;
     }
@@ -24,6 +26,15 @@ table {
   }
 }
 
+.player {
+  background-color: $color-active;
+  width: $cell-width * 0.9;
+  height: $cell-width * 0.9;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
 
 .App {
   text-align: center;
