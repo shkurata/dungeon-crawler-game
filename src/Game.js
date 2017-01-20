@@ -14,13 +14,15 @@ class Game extends BaseComponent {
 
   componentWillMount() {
     this.setState({
-      table: this.randomizeMap(this.createMap(50, 50))
+      //table: this.randomizeMap(this.createMap(50, 50))
+      table: this.createMap(50, 50)
     });
   }
 
   componentDidMount() {
     this.markActiveCell(this.chooseFreeCell());
-    this.drawLine([1, 2], 30, 'horizontal');
+    //this.drawLine([1, 2], 30, 'horizontal');
+    this.drawRectangles();
     window.addEventListener('keydown', this.keyPressHandler);
   }
 
@@ -29,7 +31,7 @@ class Game extends BaseComponent {
   }
 
   createMap(rows, cols) {
-    return new Array(rows).fill(new Array(cols).fill(null));
+    return new Array(rows).fill(new Array(cols).fill(0));
   }
 
   randomizeMap(table) {
@@ -40,55 +42,56 @@ class Game extends BaseComponent {
     });
   }
 
-  drawLine(point, length, orientation) {
-    let table = this.state.table.slice();
-    if (orientation === 'horizontal') {
-      const row = point[0];
-      for (let i = point[1]; i <= length; i++) {
-        table[row][i] = 0;
-      }
-    } else {
-      const col = point[1];
-      for (let i = point[0]; i <= length; i++) {
-        table[i][col] = 0;
+  drawRectangles() {
+    const table = this.state.table.map(row=>row.slice());
+    let curPointRow = 1;
+    let curPointCol = 1;
+    let availSpaceRow = table[0].length - 1;
+    let availSpaceCol =  table.length - 1;
+    function random3to8() {
+      return Math.floor(Math.random() * 6) + 3;
+    }
+    function makeRandomSize() {
+      const width = random3to8();
+      const height =  random3to8();
+      return [width, height];
+    }
+    function drawRectangle() {
+      const [row, col] = [curPointRow, curPointCol];
+      const [width, height] = makeRandomSize();
+      if (availSpaceCol > 4) {
+        for (let i = 0; i < width; i++) {
+          for (let j = 0; j < height; j++) {
+            table[row + i][col + j] = 1;
+          }
+        }
+        curPointRow += height;
+        curPointCol += width;
+        availSpaceRow -= height + 1;
+        availSpaceCol -= width + 1;
+        return true;
+      } else {
+        return false;
       }
     }
-    return table;
-  }
-  // drawLine(a, b) {
-  //   let table = this.state.table.slice();
-  //   if (a[0] === b[0]) {
-  //     const start = Math.min(a[1], b[1]);
-  //     const row = a[0];
-  //     for (let i = start; i <= Math.abs(a[1] - b[1]); i++) {
-  //       table[row][i] = 0;
-  //     }
-  //   } else {
-  //     const start = Math.min(a[0], b[0]);
-  //     const col = a[1];
-  //     for (let i = start; i <= Math.abs(a[0] - b[0]); i++) {
-  //       table[i][col] = 0;
-  //     }
-  //   }
-  //   return table;
-  // }
+    while (drawRectangle()) {}
 
-  drawRectangcle(point, width, height) {
-
+    this.setState({
+      table: table
+    });
   }
 
   markActiveCell(cell) {
       const oldCell = this.state.curPos;
-      let table = this.state.table.slice();
+      const table = this.state.table.map(row=>row.slice());
       if (oldCell.length) {
         table[oldCell[0]][oldCell[1]] = 1;
       }
       table[cell[0]][cell[1]] = 2;
       this.setState({
         curPos: cell,
-        //table: table
+        table: table
       });
-      return table;
   }
 
   chooseFreeCell() {
